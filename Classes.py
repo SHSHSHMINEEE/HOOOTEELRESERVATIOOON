@@ -1,3 +1,11 @@
+'''
+
+                            Online Python Compiler.
+                Code, Compile, Run and Debug python program online.
+Write your code in this editor and press "Run" button to execute it.
+
+'''
+
 from datetime import datetime
 
 class Hotel:
@@ -127,10 +135,10 @@ class Room:
 
 class Booking:
     """Represents a Room Booking made by a Guest."""
-    def __init__(self, bookingId, guest, room, checkInDate, checkOutDate, numberOfRooms, totalCharges, status):
+    def __init__(self, bookingId, guest, rooms, checkInDate, checkOutDate, numberOfRooms, totalCharges, status):
         self._bookingId = bookingId
         self._guest = guest
-        self._room = room
+        self._rooms = rooms  # List of Room objects
         self._checkInDate = checkInDate
         self._checkOutDate = checkOutDate
         self._numberOfRooms = numberOfRooms
@@ -147,10 +155,10 @@ class Booking:
     def setGuest(self, guest): 
         self._guest = guest
 
-    def getRoom(self): 
-        return self._room
-    def setRoom(self, room): 
-        self._room = room
+    def getRooms(self): 
+        return self._rooms
+    def setRooms(self, rooms): 
+        self._rooms = rooms
 
     def getCheckInDate(self): 
         return self._checkInDate
@@ -172,8 +180,10 @@ class Booking:
     def setTotalCharges(self, totalCharges): 
         self._totalCharges = totalCharges
 
-    def getStatus(self): return self._status
-    def setStatus(self, status): self._status = status
+    def getStatus(self): 
+        return self._status
+    def setStatus(self, status): 
+        self._status = status
 
     def confirmBooking(self): 
         return f"Booking {self._bookingId} confirmed."
@@ -185,19 +195,24 @@ class Booking:
 
     def calculateCharges(self):
         nights = self.calculateNumberOfNights()
-        return nights * self._room.getPricePerNight() * self._numberOfRooms
+        total = sum(room.getPricePerNight() for room in self._rooms) * self._numberOfRooms
+        self._totalCharges = total
+        return total
 
     def receiveNotification(self): 
         return "Booking confirmation notification sent."
 
     def __str__(self):
+        room_numbers = ", ".join(str(room.getRoomNumber()) for room in self._rooms)  # Join all room numbers
+        
         return (
             f"Booking Id: {self._bookingId} | Guest: {self._guest.getName()}\n"
-            f"Room: {self._room.getRoomNumber()} | Number of Rooms: {self._numberOfRooms}\n"
+            f"Rooms: {room_numbers} | Number of Rooms: {self._numberOfRooms}\n"
             f"Check-in: {self._checkInDate} | Check-out: {self._checkOutDate}\n"
             f"Number of Nights: {self.calculateNumberOfNights()} | Total: {self._totalCharges}\n"
             f"Status: {self._status}"
         )
+
 
 
 class User:
@@ -574,13 +589,14 @@ def test_complete_guest_flow():
     
     # Make a booking
     number_of_rooms = 2
-    booking = Booking(1001, guest, room2, "2025-03-25", "2025-03-28", number_of_rooms, 0.0, True)
+    booking = Booking(1001, guest, [room1, room2], "2025-03-25", "2025-03-28", number_of_rooms, 0.0, True)
     total_charges = booking.calculateCharges()
     booking.setTotalCharges(total_charges)
     guest.makeBookings(booking)
     print("\n-- Booking --")
     print(booking.confirmBooking())
-    print(room2.bookRoom())
+    for room in [room1, room2]:
+        print(room.bookRoom()) #Book each room
     print(booking)
 
     # Submit feedback
