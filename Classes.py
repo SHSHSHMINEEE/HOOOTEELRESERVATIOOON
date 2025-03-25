@@ -1,11 +1,3 @@
-'''
-
-                            Online Python Compiler.
-                Code, Compile, Run and Debug python program online.
-Write your code in this editor and press "Run" button to execute it.
-
-'''
-
 from datetime import datetime
 
 class Hotel:
@@ -67,7 +59,7 @@ class Hotel:
         return (f"Hotel: {self._name}\n"
                 f"Location: {self._location}, {self._city}\n"
                 f"Status: {self._status}\n"
-                f"Phone: {self._phoneNumber}\n"
+                f"Phone Number: {self._phoneNumber}\n"
                 f"Rating: {self._rating}\n"
                 f"Rooms Count: {len(self._roomList)}")
 
@@ -206,10 +198,13 @@ class Booking:
         room_numbers = ", ".join(str(room.getRoomNumber()) for room in self._rooms)  # Join all room numbers
         
         return (
-            f"Booking Id: {self._bookingId} | Guest: {self._guest.getName()}\n"
-            f"Rooms: {room_numbers} | Number of Rooms: {self._numberOfRooms}\n"
+            f"Booking Id: {self._bookingId}\n"
+            f"Guest: {self._guest.getName()}\n"
+            f"Rooms: {room_numbers}\n"
+            f"Number of Rooms: {self._numberOfRooms}\n"
             f"Check-in: {self._checkInDate} | Check-out: {self._checkOutDate}\n"
-            f"Number of Nights: {self.calculateNumberOfNights()} | Total: {self._totalCharges}\n"
+            f"Number of Nights: {self.calculateNumberOfNights()}\n"
+            f"Total: {self._totalCharges}\n"
             f"Status: {self._status}"
         )
 
@@ -257,8 +252,10 @@ class User:
     def __str__(self):
         return (
             f"User Info:\n"
-            f"ID: {self._userId} | Name: {self._name}\n"
-            f"Email: {self._email} | Phone: {self._phoneNumber}\n"
+            f"ID: {self._userId}\n"
+            f"Name: {self._name}\n"
+            f"Email: {self._email}\n"
+            f"Phone Number: {self._phoneNumber}\n"
             f"Nationality: {self._nationality}")
 
 
@@ -346,6 +343,7 @@ class Admin(User):
 
     def __str__(self):
         return (
+            super().__str__() + "\n" +
             f"Admin Info: {self._name}\n"
             f"Role: {self._role}\n"
             f"Permissions: {self._permissions}")
@@ -572,12 +570,12 @@ def test_complete_guest_flow():
     print(hotel)
     
     # Create admin
-    admin = Admin("A001", "Admin John", "admin@hotel.com", "55667788", "Qatar", "Manager", ["manage_rooms", "view_reports"])
+    admin = Admin("A001", "Admin Mohammed", "mohammed@royalstay.com", "55667788", "Qatar", "Manager", ["manage_rooms", "view_reports"])
     print("\n-- Admin Info --")
     print(admin)
     
     # Create a guest
-    guest = Guest("G001", "Sara", "sara@gmail.com", "77712345", "Qatar", True, [], [], [])
+    guest = Guest("G001", "Sara", "sara@gmail.com", "971503276556", "Emarati", True, [], [], [])
     print("\n-- Guest Account --")
     print(guest.createAccount())
     print(guest)
