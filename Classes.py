@@ -186,7 +186,6 @@ class Booking:
         return (d2 - d1).days
 
     def calculateCharges(self):
-        nights = self.calculateNumberOfNights()
         total = sum(room.getPricePerNight() for room in self._rooms) * self._numberOfRooms
         self._totalCharges = total
         return total
@@ -558,4 +557,3 @@ class LoyaltyProgram:
             f"Points: {self._points}\n"
             f"Status: {self._guest.getLoyaltyStatus()}\n"
         )
-
