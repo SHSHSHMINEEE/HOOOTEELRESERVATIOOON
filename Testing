@@ -1,56 +1,59 @@
 def test_complete_qatar():
+# Start of test case 1: Qatar hotel scenario
     print("\n========== Testing 1: ==========")
 
-    # Create rooms and hotel
+    # Create two room objects for the hotel
     room1 = Room(101, "Deluxe", 300.0, ["WiFi", "TV"], True, 4.5)
     room2 = Room(102, "Suite", 500.0, ["WiFi", "Jacuzzi"], True, 4.8)
+
+    # Create the hotel object with rooms in Doha
     hotel = Hotel("Royal Stay", "Corniche", "Doha", "Open", "12345678", 4.7, [room1, room2])
     print(hotel)
     
-    # Create admin
+    # Create admin user for the hotel
     admin = Admin("A001", "Admin Mohammed", "mohammed@royalstay.com", "55667788", "Qatar", "Manager", ["manage_rooms", "view_reports"])
     print("\n-- Admin Info --")
     print(admin)
     
-    # Create a guest
+    # Create guest user
     guest = Guest("G001", "Sara", "sara@gmail.com", "971503276556", "Emarati", True, [], [], [])
     print("\n-- Guest Account --")
-    print(guest.createAccount())
+    print(guest.createAccount()) # Create guest account
     print(guest)
     
-    # Print room info
+    # Print available room info
     print("\n-- Rooms --")
     print(room1)
     print(room2)
     
-    # Make a booking
+    # Booking process by the guest
     number_of_rooms = 2
     booking = Booking(1001, guest, [room1, room2], "2025-03-25", "2025-03-28", number_of_rooms, 0.0, True)
-    total_charges = booking.calculateCharges()
-    booking.setTotalCharges(total_charges)
-    guest.makeBookings(booking)
+    total_charges = booking.calculateCharges() # Calculate total cost
+    booking.setTotalCharges(total_charges) # Set total charge to booking
+    guest.makeBookings(booking) # Add booking to guest account
     print("\n-- Booking --")
-    print(booking.confirmBooking())
-    for room in [room1, room2]:
+    print(booking.confirmBooking()) # Confirm booking
+    for room in [room1, room2]: # Loop through and book each room
         print(room.bookRoom()) #Book each room
     print(booking)
 
-    # Submit feedback
+    # Submit feedback for the stay
     feedback = Feedback(501, 4.8, "Amazing suite and great service!", datetime.now())
     guest._feedbackList.append(feedback)
     print("\n-- Feedback --")
     print(feedback.submitFeedBack())
     print(feedback)
 
-    # Join loyalty program
+    # Add guest to loyalty program
     loyalty = LoyaltyProgram(301, guest, 150)
     guest._loyaltyList.append(loyalty)
     print("\n-- Loyalty Program --")
-    print(loyalty.displayReward())
-    print(loyalty.updateRewards(50))
+    print(loyalty.displayReward()) # Show points
+    print(loyalty.updateRewards(50)) # Update points
     print(loyalty)
 
-    # Make a payment
+    # Make payment
     payment = Payment(9001, total_charges, "Credit Card", "Doha", "2025-03-24", "Completed")
     print("\n-- Payment --")
     print(payment.processPayment())
@@ -63,19 +66,22 @@ def test_complete_qatar():
     print(invoice)
     
 def test_complete_uae():
+    # Start of test case 2: UAE hotel scenario
     print("\n========== Testing 2: ==========")
 
     # Create one room and hotel (UAE)
     room1 = Room(201, "Executive", 450.0, ["WiFi", "TV", "Mini Bar"], True, 4.6)
+
+    # Create hotel object for Dubai
     hotel = Hotel("Emirates Grand", "Sheikh Zayed Road", "Dubai", "Open", "+971 4 5678900", 4.8, [room1])
     print(hotel)
     
-    # Create admin (UAE-based)
+    # Create admin object
     admin = Admin("A002", "Admin Aisha", "aisha@emiratesgrand.com", "+971505556666", "UAE", "General Manager", ["manage_rooms", "approve_discounts"])
     print("\n-- Admin Info --")
     print(admin)
     
-    # Create a guest (Emirati national)
+    # Create guest object
     guest = Guest("G002", "Khalid", "khalid.ali@email.com", "+971502345678", "UAE", True, [], [], [])
     print("\n-- Guest Account --")
     print(guest.createAccount())
@@ -85,7 +91,7 @@ def test_complete_uae():
     print("\n-- Room --")
     print(room1)
     
-    # Make a booking
+    # Booking process
     number_of_rooms = 1
     booking = Booking(2001, guest, [room1], "2025-04-01", "2025-04-04", number_of_rooms, 0.0, True)
     total_charges = booking.calculateCharges()
@@ -103,7 +109,7 @@ def test_complete_uae():
     print(feedback.submitFeedBack())
     print(feedback)
 
-    # Join loyalty program
+    # Add guest to loyalty program
     loyalty = LoyaltyProgram(401, guest, 200)
     guest._loyaltyList.append(loyalty)
     print("\n-- Loyalty Program --")
@@ -111,7 +117,7 @@ def test_complete_uae():
     print(loyalty.updateRewards(100))
     print(loyalty)
 
-    # Make a payment
+    # Make payment
     payment = Payment(8001, total_charges, "Apple Pay", "Downtown Dubai", "2025-03-30", "Completed")
     print("\n-- Payment --")
     print(payment.processPayment())
@@ -124,9 +130,11 @@ def test_complete_uae():
     print(invoice)
 
 def main():
+    # Run both test scenarios: Qatar and UAE
     test_complete_qatar()
     print("\n" + "="*50 + "\n")
     test_complete_uae()
 
 if __name__ == "__main__":
+    # Entry point to execute the tests
     main()
