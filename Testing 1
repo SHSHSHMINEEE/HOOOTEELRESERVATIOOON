@@ -1,5 +1,5 @@
-def test_complete_guest_flow():
-    print("\n========== Test: Complete Guest Flow ==========")
+def test_complete_qatar():
+    print("\n========== Testing 1: ==========")
 
     # Create rooms and hotel
     room1 = Room(101, "Deluxe", 300.0, ["WiFi", "TV"], True, 4.5)
@@ -61,9 +61,72 @@ def test_complete_guest_flow():
     print("\n-- Invoice --")
     print(invoice.generateInvoice())
     print(invoice)
+    
+def test_complete_uae():
+    print("\n========== Testing 2: ==========")
+
+    # Create one room and hotel (UAE)
+    room1 = Room(201, "Executive", 450.0, ["WiFi", "TV", "Mini Bar"], True, 4.6)
+    hotel = Hotel("Emirates Grand", "Sheikh Zayed Road", "Dubai", "Open", "+971 4 5678900", 4.8, [room1])
+    print(hotel)
+    
+    # Create admin (UAE-based)
+    admin = Admin("A002", "Admin Aisha", "aisha@emiratesgrand.com", "+971505556666", "UAE", "General Manager", ["manage_rooms", "approve_discounts"])
+    print("\n-- Admin Info --")
+    print(admin)
+    
+    # Create a guest (Emirati national)
+    guest = Guest("G002", "Khalid", "khalid.ali@email.com", "+971502345678", "UAE", True, [], [], [])
+    print("\n-- Guest Account --")
+    print(guest.createAccount())
+    print(guest)
+    
+    # Print room info
+    print("\n-- Room --")
+    print(room1)
+    
+    # Make a booking
+    number_of_rooms = 1
+    booking = Booking(2001, guest, [room1], "2025-04-01", "2025-04-04", number_of_rooms, 0.0, True)
+    total_charges = booking.calculateCharges()
+    booking.setTotalCharges(total_charges)
+    guest.makeBookings(booking)
+    print("\n-- Booking --")
+    print(booking.confirmBooking())
+    print(room1.bookRoom())  # Book the room
+    print(booking)
+
+    # Submit feedback
+    feedback = Feedback(601, 5.0, "Incredible stay! Loved the Executive Room!", datetime.now())
+    guest._feedbackList.append(feedback)
+    print("\n-- Feedback --")
+    print(feedback.submitFeedBack())
+    print(feedback)
+
+    # Join loyalty program
+    loyalty = LoyaltyProgram(401, guest, 200)
+    guest._loyaltyList.append(loyalty)
+    print("\n-- Loyalty Program --")
+    print(loyalty.displayReward())
+    print(loyalty.updateRewards(100))
+    print(loyalty)
+
+    # Make a payment
+    payment = Payment(8001, total_charges, "Apple Pay", "Downtown Dubai", "2025-03-30", "Completed")
+    print("\n-- Payment --")
+    print(payment.processPayment())
+    print(payment)
+
+    # Generate invoice
+    invoice = Invoice(6001, booking, total_charges, 10, 50.0)
+    print("\n-- Invoice --")
+    print(invoice.generateInvoice())
+    print(invoice)
 
 def main():
-    test_complete_guest_flow()
+    test_complete_qatar()
+    print("\n" + "="*50 + "\n")
+    test_complete_uae()
 
 if __name__ == "__main__":
     main()
