@@ -316,7 +316,7 @@ class Guest(User):
             f"Loyalty Status: {self._loyaltyStatus}\n"
             f"Bookings: {len(self._bookingsList)}\n"
             f"Loyalty Programs: {len(self._loyaltyList)}\n"
-        	f"Feedbacks: {len(self._feedbackList)}")
+            f"Feedbacks: {len(self._feedbackList)}")
 
 class Admin(User):
     """
