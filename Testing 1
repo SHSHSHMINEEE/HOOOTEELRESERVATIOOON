@@ -1,0 +1,69 @@
+def test_complete_guest_flow():
+    print("\n========== Test: Complete Guest Flow ==========")
+
+    # Create rooms and hotel
+    room1 = Room(101, "Deluxe", 300.0, ["WiFi", "TV"], True, 4.5)
+    room2 = Room(102, "Suite", 500.0, ["WiFi", "Jacuzzi"], True, 4.8)
+    hotel = Hotel("Royal Stay", "Corniche", "Doha", "Open", "12345678", 4.7, [room1, room2])
+    print(hotel)
+    
+    # Create admin
+    admin = Admin("A001", "Admin Mohammed", "mohammed@royalstay.com", "55667788", "Qatar", "Manager", ["manage_rooms", "view_reports"])
+    print("\n-- Admin Info --")
+    print(admin)
+    
+    # Create a guest
+    guest = Guest("G001", "Sara", "sara@gmail.com", "971503276556", "Emarati", True, [], [], [])
+    print("\n-- Guest Account --")
+    print(guest.createAccount())
+    print(guest)
+    
+    # Print room info
+    print("\n-- Rooms --")
+    print(room1)
+    print(room2)
+    
+    # Make a booking
+    number_of_rooms = 2
+    booking = Booking(1001, guest, [room1, room2], "2025-03-25", "2025-03-28", number_of_rooms, 0.0, True)
+    total_charges = booking.calculateCharges()
+    booking.setTotalCharges(total_charges)
+    guest.makeBookings(booking)
+    print("\n-- Booking --")
+    print(booking.confirmBooking())
+    for room in [room1, room2]:
+        print(room.bookRoom()) #Book each room
+    print(booking)
+
+    # Submit feedback
+    feedback = Feedback(501, 4.8, "Amazing suite and great service!", datetime.now())
+    guest._feedbackList.append(feedback)
+    print("\n-- Feedback --")
+    print(feedback.submitFeedBack())
+    print(feedback)
+
+    # Join loyalty program
+    loyalty = LoyaltyProgram(301, guest, 150)
+    guest._loyaltyList.append(loyalty)
+    print("\n-- Loyalty Program --")
+    print(loyalty.displayReward())
+    print(loyalty.updateRewards(50))
+    print(loyalty)
+
+    # Make a payment
+    payment = Payment(9001, total_charges, "Credit Card", "Doha", "2025-03-24", "Completed")
+    print("\n-- Payment --")
+    print(payment.processPayment())
+    print(payment)
+
+    # Generate invoice
+    invoice = Invoice(7001, booking, total_charges, 10, 25.0)
+    print("\n-- Invoice --")
+    print(invoice.generateInvoice())
+    print(invoice)
+
+def main():
+    test_complete_guest_flow()
+
+if __name__ == "__main__":
+    main()
