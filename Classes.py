@@ -118,7 +118,7 @@ class Room:
     def __str__(self):
         # String representation of the Room object
         return (
-            f"Room Info:\n"
+            f"Room Info:\n" # Header for the room info section
             f"Room Number: {self._roomNumber}\n" # Show room number
             f"Room Type: {self._roomType}\n" # Show room type
             f"Price/Night: {self._pricePerNight}\n" # Show price per night
@@ -255,7 +255,7 @@ class User:
     def __str__(self):
         # Return a string representation of the User object
         return (
-            f"User Info:\n"
+            f"User Info:\n" # Header for the user section
             f"ID: {self._userId}\n" #Show user Id
             f"Name: {self._name}\n" #Show User name
             f"Email: {self._email}\n" #Show user's email 
@@ -417,7 +417,7 @@ class Payment:
     def __str__(self):
         # Return string summary of the payment
         return ( 
-            f"Payment Details:\n" # Header for the payment summary
+            f"Payment Details:\n" # Header for the payment section
             f"Payment ID: {self._paymentId}\n" # Shows the unique payment identifier
             f"Original Amount: {self._amount}\n" # Displays the initial amount before any deductions or charges
             f"Discount (5%): {self._discount}\n" # Shows the calculated discount (5% of original amount)
@@ -528,46 +528,47 @@ class Feedback:
     def __str__(self):
         # Return string representation of feedback details
         return (
-        f"Feedback Id:{self._feedbackId}\n"
-        f"Rating: {self._rating}\n"
-        f"Comments: {self._comments}\n"
-        f"Date: {self._feedbackDateTime}")
+        f"Feedback Id:{self._feedbackId}\n" # Display the unique feedback ID
+        f"Rating: {self._rating}\n" # Display the numeric rating given by the guest
+        f"Comments: {self._comments}\n" # Display the guest's written comments
+        f"Date: {self._feedbackDateTime}") # Display the date and time when the feedback was submitted
 
 
 class LoyaltyProgram:
     """Represents loyalty program membership for a guest."""
     def __init__(self, loyaltyId, guest, points):
-        self._loyaltyId = loyaltyId
-        self._guest = guest
-        self._points = points
+        self._loyaltyId = loyaltyId # Store the unique ID for the loyalty program
+        self._guest = guest # Store the associated guest (Guest object)
+        self._points = points # Store the number of loyalty points the guest has
 
     def getLoyaltyId(self):
-        return self._loyaltyId
+        return self._loyaltyId # Return loyalty program ID
     def setLoyaltyId(self, loyaltyId):
-        self._loyaltyId = loyaltyId
+        self._loyaltyId = loyaltyId # Set loyalty program ID
 
     def getGuest(self):
-        return self._guest
+        return self._guest # Return guest object
     def setGuest(self, guest):
-        self._guest = guest
+        self._guest = guest # Set guest object
 
     def getPoints(self):
-        return self._points
+        return self._points # Return current loyalty points
     def setPoints(self, points):
-        self._points = points
+        self._points = points # Set loyalty points
 
     def updateRewards(self, points):
-        self._points += points
-        return "Rewards updated."
+        self._points += points # Add points to current balance
+        return "Rewards updated." # Return confirmation message
 
     def displayReward(self):
-        return self._points
+        return self._points # Return total reward points
   
     def __str__(self):
+        # String representation of loyalty program info
         return (
-            f"LoyaltyProgram:\n"
-            f"ID: {self._loyaltyId}\n"
-            f"Guest: {self._guest.getName()}\n"
-            f"Points: {self._points}\n"
-            f"Status: {self._guest.getLoyaltyStatus()}\n"
+            f"LoyaltyProgram:\n" # Header for the loyalty program section
+            f"ID: {self._loyaltyId}\n" # Display loyalty program ID
+            f"Guest: {self._guest.getName()}\n" # Display the guest's name
+            f"Points: {self._points}\n" # Display the total loyalty points
+            f"Status: {self._guest.getLoyaltyStatus()}\n" # Display the guest's loyalty status
         )
