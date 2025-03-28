@@ -316,16 +316,19 @@ class Guest(User):
     def cancelReservation(self, booking_id): # Method to cancel a reservation given a booking ID
         for booking in self._bookingsList:  # Iterate through all bookings in the guest's bookings list
             if booking.getBookingId() == booking_id and booking.getStatus(): # Check if the booking ID matches and the booking is currently active
+                discount = booking.getTotalCharges() * 0.05 #the total after the discount discounted price
+                additional_charges = 25.0  # same as used in payment
+                total_after_discount = booking.getTotalCharges() - discount + additional_charges #calculate the total after discount
                 # Calculate a cancellation fee as 10% of the total charges
                 cancellation_fee = booking.getTotalCharges() * 0.10  # 10% fee
                 # Calculate the refund amount after deducting the cancellation fee
-                refund_amount = booking.getTotalCharges() - cancellation_fee
+                refund_amount = total_after_discount - cancellation_fee
                 for room in booking.getRooms(): # Loop through all rooms associated with this booking
                     room.setAvailability(True) # Mark each room as available again
                 booking.setStatus(False) # Set the booking status to False (meaning it is now cancelled)
                 # Return a detailed cancellation message including refund information
                 return (f"Booking {booking_id} cancelled successfully.\n" #Show booking Id
-                        f"Original Charges: {booking.getTotalCharges()}\n" #Show Original Price
+                        f"Total Paid After Discount (5%): {total_after_discount}\n" #Show original total Price
                         f"Cancellation Fee (10%): {cancellation_fee}\n" #Show Cancellation fee
                         f"Refund Amount: {refund_amount}") #Show Refund total amount
         return f"No active booking found with ID {booking_id}." # If no active booking with the given ID is found, return an error message
