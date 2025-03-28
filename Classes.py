@@ -313,7 +313,21 @@ class Guest(User):
     def updateProfile(self):
         return f"Profile updated for {self._name}" # Simulate profile update
 
-    def viewReservation(self):
+    def cancelReservation(self, booking_id):
+        for booking in self._bookingsList:
+            if booking.getBookingId() == booking_id and booking.getStatus():
+                cancellation_fee = booking.getTotalCharges() * 0.10  # 10% fee
+                refund_amount = booking.getTotalCharges() - cancellation_fee
+                for room in booking.getRooms():
+                    room.setAvailability(True)
+                booking.setStatus(False)
+                return (f"Booking {booking_id} cancelled successfully.\n"
+                        f"Original Charges: {booking.getTotalCharges()}\n"
+                        f"Cancellation Fee (10%): {cancellation_fee}\n"
+                        f"Refund Amount: {refund_amount}")
+        return f"No active booking found with ID {booking_id}."
+        
+    def viewReservationHistory(self):
         return f"You have {len(self._bookingsList)} reservations." # Show number of bookings
     
     def __str__(self):
