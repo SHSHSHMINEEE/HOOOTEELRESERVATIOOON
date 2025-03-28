@@ -62,6 +62,12 @@ def test_complete_qatar():
     print("\n-- Invoice --")
     print(invoice.generateInvoice())  # Generate invoice text
     print(invoice) # Print invoice details
+
+    print("\n-- Reservation History: --") # Display a header for the reservation history section
+    print(guest.viewReservationHistory()) # Call the viewReservationHistory() method to display all past bookings of the guest
+    
+    print("\n-- Cancel Reservation --") # Display a header for the cancellation section
+    print(guest.cancelReservation(1001)) # Call the cancelReservation() method with booking ID 1001 to cancel that booking and print the cancellation and refund info
     
 def test_complete_uae():
     # Start of test case 2: UAE hotel scenario
