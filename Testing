@@ -132,14 +132,15 @@ def test_complete_uae():
     print(invoice.generateInvoice()) # Generate invoice message
     print(invoice) # Print invoice
 
+    print("\n-- Reservation History: --") # Display a header for the reservation history section
+    print(guest.viewReservationHistory()) # Call the viewReservationHistory() method to display all past bookings of the guest
+
 def main():
     # Run both test scenarios: Qatar and UAE
     test_complete_qatar() # Run Qatar test
     print("\n" + "="*50 + "\n") # Separator
     test_complete_uae() # Run UAE test
 
-    print("\n-- Reservation History: --") # Display a header for the reservation history section
-    print(guest.viewReservationHistory()) # Call the viewReservationHistory() method to display all past bookings of the guest
 
 if __name__ == "__main__":
     # Entry point to execute the tests
